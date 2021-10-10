@@ -13,6 +13,22 @@
         * {
             margin: 0;
             font-family: 'Poppins', sans-serif;
+            scrollbar-width: thin;
+            scrollbar-color: #5123c5 #a18ed2;
+        }
+
+
+        *::-webkit-scrollbar {
+            width: 8px;
+            height: 5px;
+        }
+
+        *::-webkit-scrollbar-track {
+            background: #a18ed2;
+        }
+
+        *::-webkit-scrollbar-thumb {
+            background-color: #5123c5;
         }
 
         .outer_container {
@@ -253,6 +269,15 @@
             text-align: center;
             margin-left: 27%;
             color: white;
+        }
+
+
+
+        @media(max-width:700px) {
+            .container {
+                width: auto;
+                overflow-x: auto;
+            }
         }
     </style>
     <div class="outer_container">

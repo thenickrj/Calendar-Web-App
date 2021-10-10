@@ -239,10 +239,11 @@ function dailyView(e) {
   console.log(e.target.innerHTML[0]);
   console.log(dayPara[0]);
   console.log(months[date.getMonth()], e.target.innerHTML, date.getFullYear());
-
-  window.location.href = `/dailyview/day=${dayPara[0]}/month=${
-    months[date.getMonth()]
-  }/year=${date.getFullYear()}`;
+  if (dayPara[0]) {
+    window.location.href = `/dailyview/day=${dayPara[0]}/month=${
+      months[date.getMonth()]
+    }/year=${date.getFullYear()}`;
+  }
 }
 
 function todayDateCheck(idCheck) {
