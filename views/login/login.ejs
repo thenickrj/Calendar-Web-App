@@ -1,0 +1,301 @@
+<html>
+
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap" rel="stylesheet">
+    <title>Login | Calendar App</title>
+</head>
+<style>
+    * {
+        font-family: 'Poppins', sans-serif;
+    }
+
+    .login {
+        width: 30%;
+        box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
+            rgba(0, 0, 0, 0.3) 0px 30px 60px -30px,
+            rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+        min-width: fit-content;
+        display: flex;
+        justify-content: center;
+        top: 20px;
+        position: relative;
+        z-index: 99;
+        margin: auto;
+    }
+
+    .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #fff;
+        box-shadow: 0px 0px 12px 2px rgba(15, 15, 15, 0.2);
+        border-radius: 4px;
+        position: relative;
+        z-index: 99;
+        width: 100%;
+        height: 100%;
+        z-index: 99;
+        padding: 17px 10px;
+        /* //transition: transform 200ms ease-in-out; */
+    }
+
+    .right-side {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        height: 90%;
+        background-color: #3498db;
+        width: 100%;
+        position: absolute;
+        border-radius: 6px;
+        z-index: 1;
+        transition: all 400ms ease-in-out;
+        cursor: pointer;
+        box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    }
+
+    .right-side.right {
+        right: -40%;
+    }
+
+    .right-side:hover {
+        margin: 0 -5% 0 -5%;
+    }
+
+    .right-side.left {
+        right: 40%;
+        align-items: flex-start;
+    }
+
+    .right-side.left:hover {
+        right: 45%;
+    }
+
+    .text {
+
+        font-size: 21px;
+        font-weight: 500;
+        color: #fff;
+    }
+
+    .login_container {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .header {
+        font-size: 24px;
+    }
+
+    .content {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .log_img_contain {
+        width: 400px;
+        margin-left: -48px;
+    }
+
+    .log_img {
+        margin-left: -15px;
+    }
+
+    .form {
+        margin-top: 2em;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .form-group {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        width: fit-content;
+    }
+
+    .inLabel {
+        font-size: 20px;
+    }
+
+    .login_input {
+        margin-top: 6px;
+        min-width: 18em;
+        height: 37px;
+        padding: 0px 10px;
+        font-size: 16px;
+        background-color: #cfcfcf9c;
+        border: 0;
+        border-radius: 4px;
+        margin-bottom: 31px;
+        transition: all 250ms ease-in-out;
+    }
+
+    .login_input:focus {
+        outline: none;
+        box-shadow: 0px 0px 12px 0.8px #0e81ce96;
+    }
+
+    .footer {
+        margin-top: 3em;
+    }
+
+    .loginButton {
+        font-size: 21px;
+        padding: 5px 20px;
+        border: 0;
+        background-color: #3498db;
+        color: #fff;
+        border-radius: 3px;
+        transition: all 250ms ease-in-out;
+        cursor: pointer;
+    }
+
+    .loginButton:hover {
+        background-color: #2386c8;
+    }
+
+    .loginButton:focus {
+        outline: none;
+    }
+
+    .alert {
+        position: relative;
+        padding: 5px 5px;
+        margin-bottom: 1rem;
+        border: 1px solid transparent;
+        border-radius: 0.25rem;
+    }
+
+    a {
+        color: cornflowerblue;
+    }
+
+
+    a:hover {
+        color: red;
+    }
+
+    .alert-danger {
+        color: #842029;
+        background-color: #f8d7da;
+        border-color: #f5c2c7;
+    }
+
+    .error_input {
+        width: fit-content;
+        height: 30px;
+        /* margin: auto; */
+        top: 1vw;
+        position: relative;
+    }
+
+    .signup_redirect {
+        margin-top: 3%;
+        padding: 4px;
+        text-align: center;
+    }
+</style>
+
+<body>
+    <div>
+        <div class="login">
+            <div class="container">
+                <div class="login_container">
+                    <div class="header">Login</div>
+                    <div class="content">
+                        <div class="log_img_contain">
+                            <img class="log_img" width="500px" height="200px" src="../public/images/signIn.svg" alt="">
+
+                        </div>
+                        <div class="form">
+                            <div class="form-group">
+                                <label class="inLabel">
+                                    Email
+                                </label>
+                                <input id="email" class="login_input" type="text" name="email" placeholder="Email...">
+                            </div>
+                            <div class="form-group">
+                                <label class="inLabel">
+                                    Password
+                                </label>
+                                <input id="password" class="login_input" type="password" name="password"
+                                    placeholder="Password...">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="footer">
+                        <button class="loginButton" type="button" onClick="login()">
+                            Login
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="signup_redirect"><a href="/signup">Click here</a> to create an account</div>
+    <script>
+        function validateEmail(emailCheck) {
+            const re =
+                /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+            return re.test(String(emailCheck).toLowerCase());
+        }
+
+        function login() {
+            var password = document.getElementById("password").value;
+            var email = document.getElementById("email").value;
+            console.log(password, email);
+            if (validateEmail(email) &&
+                password !== "" &&
+                password !== undefined
+            ) {
+                const data = {
+                    email: email,
+                    password: password,
+                };
+                async function postData(url, data) {
+                    // Default options are marked with *
+                    const response = await fetch(url, {
+                        method: 'POST', // *GET, POST, PUT, DELETE, etc.
+                        mode: 'cors', // no-cors, *cors, same-origin
+                        cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+                        credentials: 'same-origin', // include, *same-origin, omit
+                        headers: {
+                            'Content-Type': 'application/json'
+                            // 'Content-Type': 'application/x-www-form-urlencoded',
+                        },
+                        redirect: 'follow', // manual, *follow, error
+                        referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+                        body: JSON.stringify(data) // body data type must match "Content-Type" header
+                    });
+                    return response.json(); // parses JSON response into native JavaScript objects
+                }
+                postData('http://localhost:3000/login', data)
+                    .then(data => {
+                        console.log(data); // JSON data parsed by `data.json()` call
+                        if (data.status == true) {
+                            alert("User successfully logged in")
+                            window.location.href = "/";
+                            localStorage.calUserName = res.data.username;
+                            localStorage.calEmail = email;
+                            localStorage.calStatus = "true";
+
+                        } else if (data.status == false) {
+                            alert("Wrong Credentials!");
+                        } else {
+                            alert(data)
+                        }
+                    });
+            }
+        }
+    </script>
+</body>
+
+</html>

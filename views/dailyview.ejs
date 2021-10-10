@@ -1,0 +1,503 @@
+<html>
+
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" type="image\jpeg" href="https://www.favicon.cc/logo3d/218607.png">
+    <title>Daily View | Calendar App</title>
+</head>
+<style>
+    * {
+        margin: 0;
+        font-family: 'Poppins', sans-serif;
+    }
+
+    .outer_container {
+        font-family: "Poppins", sans-serif;
+        width: 100%;
+        background-color: #21d4fd;
+        background-image: linear-gradient(19deg, #21d4fd 0%, #b721ff 100%);
+        position: absolute;
+        padding-bottom: 2%;
+    }
+
+    .container_dailyView {
+        padding: 5px;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 4%;
+        height: fit-content;
+        background: white;
+        border-radius: 15px;
+        box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
+            rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
+            rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+        width: fit-content;
+    }
+
+    table {
+        margin-bottom: 5%;
+        padding-top: 3%;
+    }
+
+    th {
+        margin-top: 5%;
+    }
+
+    td {
+        border: 1px solid aquamarine;
+        padding: 0;
+        margin: 0;
+        border-radius: 8px;
+    }
+
+    .time {
+        position: relative;
+        top: 45%;
+        border: none;
+        text-align: center;
+        z-index: 1;
+    }
+
+    .event {
+        min-width: 500px;
+        margin: 5px;
+        height: 60px;
+    }
+
+    a {
+        text-decoration: none;
+    }
+
+    .label {
+        border: 1px solid #010118;
+        margin: 5px;
+        color: white;
+        background-color: #4848c3;
+        padding: 10px;
+        white-space: nowrap;
+    }
+
+
+    .modal {
+        display: none;
+        /* Hidden by default */
+        position: fixed;
+        /* Stay in place */
+        z-index: 1;
+        /* Sit on top */
+        padding-top: 100px;
+        /* Location of the box */
+        left: 0;
+        top: 0;
+        width: 100%;
+        /* Full width */
+        height: 100%;
+        /* Full height */
+        overflow: auto;
+        /* Enable scroll if needed */
+        background-color: rgb(0, 0, 0);
+
+        /* Fallback color */
+        background-color: rgba(0, 0, 0, 0.4);
+        /* Black w/ opacity */
+    }
+
+    .modal__add {
+        display: none;
+        /* Hidden by default */
+        position: fixed;
+        /* Stay in place */
+        z-index: 1;
+        /* Sit on top */
+        padding-top: 100px;
+        /* Location of the box */
+        left: 0;
+        top: 0;
+        width: 100%;
+        /* Full width */
+        height: 100%;
+        /* Full height */
+        overflow: auto;
+        /* Enable scroll if needed */
+        background-color: rgb(0, 0, 0);
+
+        /* Fallback color */
+        background-color: rgba(0, 0, 0, 0.4);
+        /* Black w/ opacity */
+    }
+
+    /* Modal Content */
+    .modal-content {
+        box-shadow: rgb(0 0 0 / 25%) 0px 54px 55px, rgb(0 0 0 / 12%) 0px -12px 30px, rgb(0 0 0 / 12%) 0px 4px 6px, rgb(0 0 0 / 17%) 0px 12px 13px, rgb(0 0 0 / 9%) 0px -3px 5px;
+        background-color: #fefefe;
+        margin: auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 400px;
+        border-radius: 15px;
+    }
+
+    /* Modal Content */
+    .modal-content-add {
+        box-shadow: rgb(0 0 0 / 25%) 0px 54px 55px, rgb(0 0 0 / 12%) 0px -12px 30px, rgb(0 0 0 / 12%) 0px 4px 6px, rgb(0 0 0 / 17%) 0px 12px 13px, rgb(0 0 0 / 9%) 0px -3px 5px;
+        background-color: #fefefe;
+        margin: auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 400px;
+        border-radius: 15px;
+    }
+
+    button {
+        border-radius: 15px;
+        cursor: pointer;
+    }
+
+    /* The Close Button */
+    .close {
+        color: #aaaaaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+    /* The Close Button */
+    .close-add {
+        color: #aaaaaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+    .close:hover,
+    .close:focus,
+    .close-add:focus,
+    .close-add:hover {
+        color: #000;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+
+    .edit__input,
+    .add__input {
+        border: 1px solid #bebec0;
+        height: 30px;
+        display: block;
+        justify-content: center;
+        align-items: center;
+        top: 25px;
+        width: 60%;
+        margin-left: 20%;
+        border-radius: 10px;
+    }
+
+    .edit__details,
+    .add__details {
+        position: relative;
+        text-align: center;
+        margin-top: 3vw;
+    }
+
+    .edit__change {
+        background-color: #105fdc;
+        color: wheat;
+        border: none;
+        width: 30%;
+        height: 25px;
+    }
+
+    .add__button {
+        background-color: rgb(16, 95, 220);
+        color: wheat;
+        border: none;
+        width: 30%;
+        height: 25px;
+        border-radius: 10px;
+    }
+
+    h3 {
+        padding: 10px;
+    }
+
+    .edit__delete {
+        height: 25px;
+        width: 30%;
+        background-color: #f83c3c;
+        margin-left: 5%;
+        color: azure;
+        border: none;
+    }
+
+    .back__button {
+        margin: 3%;
+        font-size: 40px;
+    }
+
+    input[type="text"] {
+        font-weight: bold;
+    }
+
+    .daily__heading {
+        text-align: center;
+        color: white;
+    }
+
+    .left__arrow {
+        width: 32px;
+        justify-content: center;
+        margin: auto;
+        transform: rotate(180deg);
+        transition: all 0.8s ease-in-out;
+    }
+
+    .left__arrow:hover {
+        transform: rotate(540deg) scale(1.8);
+    }
+
+    .right__arrow {
+        width: 32px;
+        justify-content: center;
+        margin: auto;
+        transform: rotate(0deg);
+        transition: all 0.8s ease-in-out;
+    }
+
+    .right__arrow:hover {
+        transform: rotate(360deg) scale(1.8);
+    }
+</style>
+
+<body>
+    <div class="outer_container">
+        <div class="back__button"><a href="/"> 🔙</a></div>
+        <div style="display: flex;justify-content: center;">
+            <img id="dateDecrement" class="left__arrow" src="http://localhost:3000/public/images/arrow.png" alt="">
+            <h1 class="daily__heading" id="daily__head"></h1>
+            <img id="dateIncrement" class="right__arrow" src="http://localhost:3000/public/images/arrow.png" alt="">
+
+        </div>
+        <div class="container_dailyView">
+            <table cellPadding="0" cellSpacing="0">
+                <tr>
+                    <th>Time</th>
+                    <th>Events</th>
+                </tr>
+                <tr>
+                    <td class="time">1 AM</td>
+                    <td class="event" onclick="addEvent(1)">
+                        <div id="1">
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="time">2 AM</td>
+                    <td class="event" onclick="addEvent(2)">
+                        <div id="2">
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="time">3 AM</td>
+                    <td class="event" onclick="addEvent(3)">
+                        <div id="3">
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="time">4 AM</td>
+                    <td class="event" onclick="addEvent(4)">
+                        <div id="4">
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="time">5 AM</td>
+                    <td class="event" onclick="addEvent(5)">
+                        <div id="5">
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="time">6 AM</td>
+                    <td class="event" onclick="addEvent(6)">
+                        <div id="6">
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="time">7 AM</td>
+                    <td class="event" onclick="addEvent(7)">
+                        <div id="7">
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="time">8 AM</td>
+                    <td class="event" onclick="addEvent(8)">
+                        <div id="8">
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="time">9 AM</td>
+                    <td class="event" onclick="addEvent(9)">
+                        <div id="9">
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="time">10 AM</td>
+                    <td class="event" onclick="addEvent(10)">
+                        <div id="10">
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="time">11 AM</td>
+                    <td class="event" onclick="addEvent(11)">
+                        <div id="11">
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="time">12 PM</td>
+                    <td class="event" onclick="addEvent(12)">
+                        <div id="12">
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="time">1 PM</td>
+                    <td class="event" onclick="addEvent(13)">
+                        <div id="13">
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="time">2 PM</td>
+                    <td class="event" onclick="addEvent(14)">
+                        <div id="14">
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="time">3 PM</td>
+                    <td class="event" onclick="addEvent(15)">
+                        <div id="15">
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="time">4 PM</td>
+                    <td class="event" onclick="addEvent(16)">
+                        <div id="16">
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="time">5 PM</td>
+                    <td class="event" onclick="addEvent(17)">
+                        <div id="17">
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="time">6 PM</td>
+                    <td class="event" onclick="addEvent(18)">
+                        <div id="18">
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="time">7 PM</td>
+                    <td class="event" onclick="addEvent(19)">
+                        <div id="19">
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="time">8 PM</td>
+                    <td class="event" onclick="addEvent(20)">
+                        <div id="20">
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="time">9 PM</td>
+                    <td class="event" onclick="addEvent(21)">
+                        <div id="21">
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="time">10 PM</td>
+                    <td class="event" onclick="addEvent(22)">
+                        <div id="22">
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="time">11 PM</td>
+                    <td class="event" onclick="addEvent(23)">
+                        <div id="23">
+                        </div>
+                    </td>
+                </tr>
+                <!-- <tr>
+                    <td class="time">12 AM</td>
+                    <td class="event" onclick="addEvent(24)">
+                        <div id="24">
+                        </div>
+                    </td>
+                </tr> -->
+            </table>
+        </div>
+    </div>
+
+    <div id="myModal" class="modal">
+        <!-- Modal content -->
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div>
+                <h1 style="text-align: center;">Enter the Event!</h1>
+                <input class="edit__input" type="text" id="editInput" name="editTitle">
+                <div class="edit__details">
+                    <hr>
+                    <h3 id="editTime">Time</h3>
+                    <h3 id="editDay">Day</h3>
+                    <h3 id="editMonth">Month</h3>
+                    <h3 id="editYear">Year</h3>
+                    <button onclick="changeEvent(event)" id="ide" class="edit__change">Change</button>
+                    <button onclick="deleteEvent()" class="edit__delete">🗑 Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div id="myModal_add" class="modal__add">
+        <!-- Modal content -->
+        <div class="modal-content-add">
+            <span class="close-add">&times;</span>
+            <div>
+                <h1 style="text-align: center;">Enter the Event!</h1>
+                <input class="add__input" type="text" id="addInput" name="addTitle" placeholder="Type Here..">
+                <div class="add__details">
+                    <hr>
+                    <h3 id="addTime">Time</h3>
+                    <h3 id="addDay">Day</h3>
+                    <h3 id="addMonth">Month</h3>
+                    <h3 id="addYear">Year</h3>
+                    <button onclick="addEventSubmit(event)" class="add__button">Add</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="/public/js/DailyView.js"></script>
+
+</html>
