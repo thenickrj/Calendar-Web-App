@@ -103,7 +103,7 @@ function dateIncrementChange() {
     day == 31
   ) {
     if (month == "December") {
-      month = " January";
+      month = "January";
       year = year + 1;
     } else {
       month = months[months.indexOf(month) + 1];
