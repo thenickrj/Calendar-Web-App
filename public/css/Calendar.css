@@ -1,0 +1,266 @@
+* {
+  margin: 0;
+  font-family: "Poppins", sans-serif;
+  scrollbar-width: thin;
+  scrollbar-color: #5123c5 #a18ed2;
+}
+
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 5px;
+}
+
+*::-webkit-scrollbar-track {
+  background: #a18ed2;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: #5123c5;
+}
+
+.outer_container {
+  font-family: "Poppins", sans-serif;
+  width: 100%;
+  height: 100vh;
+  background-color: #21d4fd;
+  background-image: linear-gradient(19deg, #21d4fd 0%, #b721ff 100%);
+  position: absolute;
+}
+
+.container {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 4%;
+  height: fit-content;
+  background: white;
+  border-radius: 15px;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
+    rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
+    rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+  width: fit-content;
+}
+
+.logout_button {
+  background: linear-gradient(45deg, #e70a0abd, #ee6b6b);
+  position: absolute;
+  top: 10px;
+  border-radius: 25px;
+  left: 10px;
+  font-family: "Poppins", sans-serif;
+  font-size: 13px;
+}
+
+.month_button {
+  border-radius: 25px;
+  height: 35px;
+  width: 100px;
+  font-weight: bold;
+  background: linear-gradient(45deg, #39f8ff, #c36c89de);
+  transition: 0.3s;
+}
+
+.month_button:hover {
+  background: linear-gradient(45deg, #c36c89de, #39f8ff);
+}
+
+#calendar {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+}
+
+.profile_container {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  text-align: center;
+}
+
+.profile_img {
+  width: 3em;
+  border-radius: 50%;
+  background-color: #4158d0;
+  background-image: linear-gradient(
+    43deg,
+    #4158d0 0%,
+    #c850c0 46%,
+    #ffcc70 100%
+  );
+  height: 3em;
+}
+
+table {
+  width: 100%;
+  margin: auto;
+}
+
+td {
+  width: 100px;
+  height: 30px;
+  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+  transition: all 0.4s ease-in-out;
+}
+
+td:hover {
+  transform: scale(1.2);
+}
+
+table td {
+  padding: 0.5rem;
+  height: 30px;
+}
+
+table th {
+  padding: 0.5rem;
+  height: 30px;
+}
+
+th {
+  color: white;
+  background: linear-gradient(45deg, #3b5ba9, #7050d8fa);
+}
+
+table tr td:first-child,
+table tr td:nth-child(7) {
+  border-left: none;
+  color: #f3eef7;
+  background: linear-gradient(45deg, #7d77b8, #ee34f3a1);
+}
+
+table tr td:nth-child(2),
+table tr td:nth-child(3),
+table tr td:nth-child(4),
+table tr td:nth-child(5),
+table tr td:nth-child(6) {
+  border-left: none;
+  color: #9e7bc7;
+
+  background: linear-gradient(45deg, #ffffff, #d2c3d2a1);
+}
+
+/* Removing all unwanted border
+from left hand side by calling
+all the elements in the first
+column and removing their left
+border*/
+table tr td:first-child,
+th:first-child {
+  border-left: none;
+}
+
+/* Removing all unwanted border
+from top of the table by calling
+all the elements in first row and
+removing their top border*/
+table tr:first-child th {
+  border-top: none;
+}
+
+/* Removing all unwanted border
+from right hand side by calling
+all the elements in last row and
+removing their right border*/
+table tr td:last-child,
+th:last-child {
+  border-right: none;
+}
+
+/* Removing all unwanted border
+from bottom of the table by
+calling all the elements in
+last column and removing their
+bottom border*/
+table tr:last-child td {
+  border-bottom: none;
+}
+
+button {
+  border: none;
+  background-color: #0e7dcf;
+  color: white;
+  width: 77px;
+  height: 35px;
+  cursor: pointer;
+}
+
+.monthControl {
+  justify-content: space-around;
+  display: flex;
+  margin-top: 2%;
+  margin-bottom: -5%;
+}
+
+.month__year {
+  color: white;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  margin-top: 15px;
+}
+
+.flex_column {
+  display: flex;
+  flex-direction: column;
+}
+
+.arrowUp {
+  width: 32px;
+  justify-content: center;
+  margin: auto;
+  transform: rotate(-90deg);
+  transition: all 0.8s ease-in-out;
+}
+
+.arrowUp:hover {
+  transform: rotate(-450deg) scale(1.8);
+}
+
+.arrowDown {
+  width: 32px;
+  justify-content: center;
+  margin: auto;
+  transform: rotate(90deg);
+  transition: all 0.8s ease-in-out;
+}
+
+.arrowDown:hover {
+  transform: rotate(450deg) scale(1.8);
+}
+
+.today_date::before {
+  content: "T";
+}
+
+.today_date {
+  padding-bottom: 0px;
+  padding-top: 2px;
+  border-radius: 50%;
+  height: 20px;
+  width: 20px;
+  position: relative;
+  margin-top: -23px;
+  margin-left: 60%;
+  color: white;
+  text-align: center;
+  background: linear-gradient(45deg, #ed5a17, #f5a110b8);
+}
+
+.event_date {
+  border-radius: 50%;
+  height: 20px;
+  width: 20px;
+  background: linear-gradient(45deg, #3b5ba9, #7050d8fa);
+  position: relative;
+  margin-top: -23px;
+  text-align: center;
+  margin-left: 27%;
+  color: white;
+}
+
+@media (max-width: 700px) {
+  .container {
+    width: auto;
+    overflow-x: auto;
+  }
+}
