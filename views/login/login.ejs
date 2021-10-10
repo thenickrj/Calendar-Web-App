@@ -142,7 +142,7 @@
     }
 
     .footer {
-        margin-top: 3em;
+        margin-top: 2em;
     }
 
     .loginButton {
@@ -293,6 +293,14 @@
                             alert(data)
                         }
                     });
+            } else if ((email == "" || email == undefined) && (password == "" || password == undefined)) {
+                alert("Enter Email and Password")
+            } else if (email == "" || email == undefined) {
+                alert("Enter Email")
+            } else if (password == "" || password == undefined) {
+                alert("Enter Password")
+            } else if (!validateEmail(email)) {
+                alert("Enter Valid Email ")
             }
         }
     </script>
