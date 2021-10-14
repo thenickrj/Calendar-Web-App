@@ -40,11 +40,12 @@ var year = parseInt(url[4].split("=")[1]);
 console.log("A", url);
 console.log("C", url[3].split("=")[1]);
 console.log("C", month);
+
 window.onload = function () {
   var url = "/";
 
-  if (localStorage.calStatus) {
-    // window.location.href = "/signup";
+  if (localStorage.calStatus !== "true") {
+    window.location.href = "/login";
   }
   fetchEvents();
   // loadName();
@@ -54,17 +55,6 @@ window.onload = function () {
 };
 
 function dateDecrementChange() {
-  //   if (day == 1) {
-  //     month = months[months.indexOf(month) - 1];
-  //     if (month !== "February") {
-  //       day = day31.includes(months.indexOf(month)) ? 31 : 30;
-  //     } else {
-  //       day = 28;
-  //     }
-  //   }
-  //   day--;
-
-  console.log(day);
   if (day == 1) {
     if (month == "January") {
       month = "December";

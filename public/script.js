@@ -13,6 +13,10 @@ const months = [
   "December",
 ];
 
+var modal = document.getElementById("myModal");
+var modalEdit = document.getElementById("myModalEdit");
+var span = document.getElementsByClassName("close")[0];
+
 const Days30 = [3, 5, 8, 10];
 
 var monthDefault = new Date().getMonth();
@@ -189,9 +193,10 @@ function ChangeYearDec() {
 }
 
 function logout() {
-  // localStorage.calStatus = false;
-  // localStorage.calUserName = undefined;
-  console.log(localStorage.calStatus);
+  if (confirm("Are you sure you want to logout?")) {
+    localStorage.calStatus = false;
+    window.location.href = "/login";
+  }
 }
 
 async function fetchEvents() {
@@ -209,6 +214,10 @@ async function fetchEvents() {
   });
   console.log(data);
   console.log(eventsDate);
+
+  // ids.forEach((element) => {
+  //   removeAllChildNodes(document.getElementById(element));
+  // });
   ids.forEach((element) => {
     var date = document.getElementById(element).innerHTML;
     if (eventsDate.includes(parseInt(date))) {
@@ -216,10 +225,250 @@ async function fetchEvents() {
       eventDiv.classList.add("event_date");
       eventDiv.onclick = function (e) {
         e.stopPropagation();
+        fetchDailyEvents(date);
       };
       document.getElementById(element).appendChild(eventDiv);
+    } else {
+      removeEventChildNodes(document.getElementById(element));
     }
   });
+}
+
+async function fetchDailyEvents(datePara) {
+  modal.style.display = "block";
+
+  var title = document.getElementById("modalHead");
+  title.innerHTML = `${datePara} ${
+    months[date.getMonth()]
+  } ${date.getFullYear()}`;
+
+  console.log(`${datePara} ${months[date.getMonth()]} ${date.getFullYear()}`);
+  const response = await fetch(
+    "http://localhost:3000/events/user=" +
+      localStorage.calEmail +
+      "/date=" +
+      datePara +
+      "/month=" +
+      months[date.getMonth()] +
+      "/year=" +
+      date.getFullYear()
+  );
+  const data = await response.json();
+  console.log(data);
+
+  var eventContainer = document.getElementById("modalEvents");
+
+  data.forEach((element) => {
+    removeAllChildNodes(document.getElementById("modalEvents"));
+  });
+
+  data.sort((a, b) => (a.time > b.time ? 1 : b.time > a.time ? -1 : 0));
+
+  data.forEach((element) => {
+    console.log(element.event, element.time);
+    var modalEvent = document.createElement("div");
+    modalEvent.classList.add("modal_event");
+    var timeMeridian = element.time > 11 ? "PM" : "AM";
+    var timeEvent = document.createElement("h4");
+    var eventName = document.createElement("h4");
+    timeEvent.innerHTML =
+      element.time > 12
+        ? element.time - 12 + " " + timeMeridian
+        : element.time + " " + timeMeridian;
+    eventName.innerHTML = element.event;
+    modalEvent.appendChild(timeEvent);
+    modalEvent.appendChild(eventName);
+    var divTag = document.createElement("span");
+    var edit = document.createElement("img");
+    edit.src = "/public/images/editPencil.png";
+    edit.classList.add("img__res");
+    edit.onclick = function (e) {
+      e.preventDefault();
+      editEventModal(element);
+    };
+    var bin = document.createElement("img");
+    bin.classList.add("img__res");
+    bin.src = "/public/images/bin.png";
+    bin.onclick = function (e) {
+      e.preventDefault();
+      deleteEvent(element);
+    };
+    divTag.appendChild(edit);
+    divTag.appendChild(bin);
+
+    modalEvent.appendChild(divTag);
+    // modalEvent.appendChild(edit);
+
+    eventContainer.appendChild(modalEvent);
+    eventContainer.appendChild(document.createElement("hr"));
+  });
+
+  span.onclick = function () {
+    modal.style.display = "none";
+  };
+}
+
+function editEventModal(element) {
+  console.log(element._id);
+
+  modalEdit.style.display = "block";
+  console.log(modal.style.display);
+  var time = element.time;
+  // Get the <span> element that closes the modal
+  var span = document.getElementsByClassName("close-edit")[0];
+
+  var editValue = document.getElementById("editInput");
+  editValue.value = element.event;
+  var timeMeridian = time > 11 ? "PM" : "AM";
+
+  document.getElementById("editTime").innerHTML =
+    time > 12
+      ? "Time: " + (time - 12) + " " + timeMeridian
+      : "Time: " + time + " " + timeMeridian;
+
+  document.getElementById("ide").value = element._id;
+  document.getElementById("editDay").innerHTML = "Day: " + element.date;
+  document.getElementById("editMonth").innerHTML = "Month: " + element.month;
+  document.getElementById("editYear").innerHTML = "Year: " + element.year;
+
+  // When the user clicks on <span> (x), close the modal
+  span.onclick = function () {
+    modalEdit.style.display = "none";
+  };
+
+  // var modalContent = document.createElement("div");
+  // modalContent.classList.add("modal-content");
+  // var close = document.createElement("span")
+  // close.onclick = function () {
+  //     modal.style.display = "none";
+  // }
+}
+
+function changeEvent(element) {
+  var id = document.getElementById("ide").value;
+  var eventInput = document.getElementById("editInput");
+  console.log(element);
+  var time = document.getElementById("editTime").innerHTML;
+  time = time.split(":");
+  time = time[1].split(" ");
+  if (time[2] == "PM" && time[1] != 12) {
+    time = 12 + parseInt(time[1]);
+  } else {
+    time = time[1];
+  }
+  var day = document.getElementById("editDay").innerHTML;
+  day = day.split(":");
+  day = parseInt(day[1]);
+  var month = document.getElementById("editMonth").innerHTML;
+  month = month.split(":");
+  month = month[1].split(" ");
+  month = month[1];
+  console.log(month);
+  var year = document.getElementById("editYear").innerHTML;
+  year = year.split(":");
+  year = parseInt(year[1]);
+
+  const data = {
+    email: localStorage.calEmail,
+    date: day,
+    month: month,
+    year: year,
+    time: time,
+    event: eventInput.value,
+  };
+  console.log(data);
+  async function editData(url, data) {
+    // Default options are marked with *
+    const response = await fetch(url, {
+      method: "POST", // *GET, POST, PUT, DELETE, etc.
+      mode: "cors", // no-cors, *cors, same-origin
+      cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+      credentials: "same-origin", // include, *same-origin, omit
+      headers: {
+        "Content-Type": "application/json",
+        // 'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      redirect: "follow", // manual, *follow, error
+      referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+      body: JSON.stringify(data), // body data type must match "Content-Type" header
+    });
+    return response.json(); // parses JSON response into native JavaScript objects
+  }
+
+  editData("http://localhost:3000/events/update=" + id, data).then((data) => {
+    alert(data);
+    modalEdit.style.display = "none";
+    modal.style.display = "none";
+
+    // fetchEvents();
+  });
+}
+
+function deleteEvent(element) {
+  var id;
+  if (element) {
+    id = element._id;
+  } else {
+    id = document.getElementById("ide").value;
+  }
+  console.log(id);
+
+  async function deleteData(url, data) {
+    // Default options are marked with *
+    const response = await fetch(url, {
+      method: "DELETE", // *GET, POST, PUT, DELETE, etc.
+      mode: "cors", // no-cors, *cors, same-origin
+      cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+      credentials: "same-origin", // include, *same-origin, omit
+      headers: {
+        "Content-Type": "application/json",
+        // 'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      redirect: "follow", // manual, *follow, error
+      referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+      body: JSON.stringify(data), // body data type must match "Content-Type" header
+    });
+    return response.json(); // parses JSON response into native JavaScript objects
+  }
+
+  if (confirm("Are you sure you want to delete this event?")) {
+    deleteData("http://localhost:3000/event/delete=" + id).then((data) => {
+      alert(data);
+      modal.style.display = "none";
+      modalEdit.style.display = "none";
+      // checkDeletedEvents();
+      removeDeletedEvents();
+    });
+  }
+}
+
+async function removeDeletedEvents() {
+  const response = await fetch(
+    "http://localhost:3000/events/user=" +
+      localStorage.calEmail +
+      "/month=" +
+      months[date.getMonth()] +
+      "/year=" +
+      date.getFullYear()
+  );
+  const data = await response.json();
+  eventsDate = data.map((event) => {
+    return event.date;
+  });
+  console.log(data);
+  console.log(eventsDate);
+
+  ids.forEach((element) => {
+    var date = document.getElementById(element).innerHTML;
+    if (!eventsDate.includes(parseInt(date))) {
+      removeEventChildNodes(document.getElementById(element));
+    }
+  });
+}
+
+// This function will remove for all deleted events and remove them from the daily view
+function checkDeletedEvents() {
+  fetchEvents();
 }
 
 function eventCheck(idCheck) {
@@ -279,93 +528,89 @@ function findDates() {
     dateStart++;
     document.getElementById("nine").innerHTML = dateStart;
     todayDateCheck("nine");
-    eventCheck("nine");
     dateStart++;
     document.getElementById("ten").innerHTML = dateStart;
     todayDateCheck("ten");
-    eventCheck("ten");
     dateStart++;
     document.getElementById("eleven").innerHTML = dateStart;
     todayDateCheck("eleven");
-    eventCheck("eleven");
     dateStart++;
     document.getElementById("twelve").innerHTML = dateStart;
     todayDateCheck("twelve");
-    eventCheck("twelve");
     dateStart++;
     document.getElementById("thirteen").innerHTML = dateStart;
     todayDateCheck("thirteen");
-    eventCheck("thirteen");
+
     dateStart++;
     document.getElementById("fourteen").innerHTML = dateStart;
     todayDateCheck("fourteen");
-    eventCheck("fourteen");
+
     dateStart++;
     document.getElementById("fifteen").innerHTML = dateStart;
     todayDateCheck("fifteen");
-    eventCheck("fifteen");
+
     dateStart++;
     document.getElementById("sixteen").innerHTML = dateStart;
     todayDateCheck("sixteen");
-    eventCheck("sixteen");
+
     dateStart++;
     document.getElementById("seventeen").innerHTML = dateStart;
     todayDateCheck("seventeen");
-    eventCheck("seventeen");
+
     dateStart++;
     document.getElementById("eighteen").innerHTML = dateStart;
     todayDateCheck("eighteen");
-    eventCheck("eighteen");
+
     dateStart++;
     document.getElementById("nineteen").innerHTML = dateStart;
     todayDateCheck("nineteen");
-    eventCheck("nineteen");
+
     dateStart++;
     document.getElementById("twenty").innerHTML = dateStart;
     todayDateCheck("twenty");
-    eventCheck("twenty");
+
     dateStart++;
     document.getElementById("twentyone").innerHTML = dateStart;
     todayDateCheck("twentyone");
-    eventCheck("twentyone");
+
     dateStart++;
     document.getElementById("twentytwo").innerHTML = dateStart;
     todayDateCheck("twentytwo");
-    eventCheck("twentytwo");
+
     dateStart++;
     document.getElementById("twentythree").innerHTML = dateStart;
     todayDateCheck("twentythree");
-    eventCheck("twentythree");
+
     dateStart++;
     document.getElementById("twentyfour").innerHTML = dateStart;
     todayDateCheck("twentyfour");
-    eventCheck("twentyfour");
+
     dateStart++;
     document.getElementById("twentyfive").innerHTML = dateStart;
     todayDateCheck("twentyfive");
-    eventCheck("twentyfive");
+
     dateStart++;
     document.getElementById("twentysix").innerHTML = dateStart;
     todayDateCheck("twentysix");
-    eventCheck("twentysix");
+
     dateStart++;
     document.getElementById("twentyseven").innerHTML = dateStart;
     todayDateCheck("twentyseven");
-    eventCheck("twentyseven");
+
     dateStart++;
     document.getElementById("twentyeight").innerHTML = dateStart;
     todayDateCheck("fourteen");
-    eventCheck("fourteen");
+
     dateStart++;
     document.getElementById("twentynine").innerHTML =
       date.getMonth() == 1 && dateStart > 28 ? "" : dateStart;
     todayDateCheck("twentynine");
-    eventCheck("twentynine");
+
     dateStart++;
     document.getElementById("thirty").innerHTML =
       date.getMonth() == 1 && dateStart > 28 ? "" : dateStart;
     todayDateCheck("thirty");
-    eventCheck("thirty");
+
     dateStart++;
     document.getElementById("thirtyone").innerHTML =
       (date.getMonth() == 1 && dateStart > 28) || dateStart > 31
@@ -374,7 +619,7 @@ function findDates() {
         ? ""
         : dateStart;
     todayDateCheck("thirtyone");
-    eventCheck("thirtyone");
+
     dateStart++;
     document.getElementById("thirtytwo").innerHTML =
       (date.getMonth() == 1 && dateStart > 28) || dateStart > 31
@@ -383,7 +628,7 @@ function findDates() {
         ? ""
         : dateStart;
     todayDateCheck("thirtytwo");
-    eventCheck("thirtytwo");
+
     dateStart++;
     document.getElementById("thirtythree").innerHTML =
       (date.getMonth() == 1 && dateStart > 28) || dateStart > 31
@@ -392,7 +637,7 @@ function findDates() {
         ? ""
         : dateStart;
     todayDateCheck("thirtythree");
-    eventCheck("thirtythree");
+
     dateStart++;
     document.getElementById("thirtyfour").innerHTML =
       (date.getMonth() == 1 && dateStart > 28) || dateStart > 31
@@ -401,7 +646,7 @@ function findDates() {
         ? ""
         : dateStart;
     todayDateCheck("thirtyfour");
-    eventCheck("thirtyfour");
+
     dateStart++;
     document.getElementById("thirtyfive").innerHTML =
       (date.getMonth() == 1 && dateStart > 28) || dateStart > 31
@@ -410,7 +655,7 @@ function findDates() {
         ? ""
         : dateStart;
     todayDateCheck("thirtyfive");
-    eventCheck("thirtyfive");
+
     dateStart++;
     document.getElementById("thirtysix").innerHTML =
       (date.getMonth() == 1 && dateStart > 28) || dateStart > 31
@@ -419,7 +664,7 @@ function findDates() {
         ? ""
         : dateStart;
     todayDateCheck("thirtysix");
-    eventCheck("thirtysix");
+
     dateStart++;
     document.getElementById("thirtyseven").innerHTML =
       (date.getMonth() == 1 && dateStart > 28) || dateStart > 31
@@ -428,7 +673,6 @@ function findDates() {
         ? ""
         : dateStart;
     todayDateCheck("thirtyseven");
-    eventCheck("thirtyseven");
   }
 
   switch (date.getDay()) {
@@ -535,6 +779,23 @@ function findDates() {
   }
 }
 
-function namse(para) {
-  console.log(para);
+function removeEventChildNodes(parent) {
+  for (let childNode of parent.childNodes) {
+    if (childNode.className === "event_date") {
+      parent.removeChild(childNode);
+    }
+  }
 }
+
+function removeAllChildNodes(parent) {
+  while (parent.firstChild) {
+    parent.removeChild(parent.firstChild);
+  }
+}
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function (event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+    modalEdit.style.display = "none";
+  }
+};

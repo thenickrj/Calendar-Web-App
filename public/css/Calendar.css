@@ -43,7 +43,7 @@
 
 .logout_button {
   background: linear-gradient(45deg, #e70a0abd, #ee6b6b);
-  position: absolute;
+  position: relative;
   top: 10px;
   border-radius: 25px;
   left: 10px;
@@ -187,7 +187,7 @@ button {
 .monthControl {
   justify-content: space-around;
   display: flex;
-  margin-top: 2%;
+  margin-top: 6vw;
   margin-bottom: -5%;
 }
 
@@ -258,9 +258,219 @@ button {
   color: white;
 }
 
+/* modal */
+
+.modal {
+  display: none;
+  /* Hidden by default */
+  position: fixed;
+  /* Stay in place */
+  z-index: 1;
+  /* Sit on top */
+  padding-top: 100px;
+  /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%;
+  /* Full width */
+  height: 100%;
+  /* Full height */
+  overflow: auto;
+  /* Enable scroll if needed */
+  background-color: rgb(0, 0, 0);
+
+  /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.4);
+  /* Black w/ opacity */
+  /* transform: translate(-50%, -50%); */
+  transition: all 150ms ease-in-out;
+  animation: fadein 0.5s;
+}
+
+.modal__edit {
+  display: none;
+  /* Hidden by default */
+  position: fixed;
+  /* Stay in place */
+  z-index: 1;
+  /* Sit on top */
+  padding-top: 100px;
+  /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%;
+  /* Full width */
+  height: 100%;
+  /* Full height */
+  overflow: auto;
+  /* Enable scroll if needed */
+  background-color: rgb(0, 0, 0);
+
+  /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.4);
+  /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+  box-shadow: rgb(0 0 0 / 25%) 0px 54px 55px, rgb(0 0 0 / 12%) 0px -12px 30px,
+    rgb(0 0 0 / 12%) 0px 4px 6px, rgb(0 0 0 / 17%) 0px 12px 13px,
+    rgb(0 0 0 / 9%) 0px -3px 5px;
+  background-color: #fefefe;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 400px;
+  min-height: 200px;
+  border-radius: 15px;
+}
+
+/* Modal Content */
+.modal-content-edit {
+  box-shadow: rgb(0 0 0 / 25%) 0px 54px 55px, rgb(0 0 0 / 12%) 0px -12px 30px,
+    rgb(0 0 0 / 12%) 0px 4px 6px, rgb(0 0 0 / 17%) 0px 12px 13px,
+    rgb(0 0 0 / 9%) 0px -3px 5px;
+  background-color: #fefefe;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 400px;
+  border-radius: 15px;
+}
+
+.modal_head {
+  text-align: center;
+}
+
+button {
+  border-radius: 15px;
+  cursor: pointer;
+}
+
+h3 {
+  padding: 10px;
+}
+/* The Close Button */
+.close {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+/* The Close Button */
+.close-edit {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus,
+.close-edit:focus,
+.close-edit:hover {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.img__res {
+  width: 30px;
+  transition: all 0.4s ease-in-out;
+  cursor: pointer;
+}
+
+.img__res:hover {
+  transform: scale(1.2);
+}
+
+.edit__input,
+.add__input {
+  border: 1px solid #bebec0;
+  height: 30px;
+  display: block;
+  justify-content: center;
+  align-items: center;
+  top: 25px;
+  width: 60%;
+  margin-left: 20%;
+  border-radius: 10px;
+}
+
+.edit__details,
+.add__details {
+  position: relative;
+  text-align: center;
+  margin-top: 3vw;
+}
+
+.edit__change {
+  background-color: #105fdc;
+  color: wheat;
+  border: none;
+  width: 30%;
+  height: 25px;
+}
+
+.edit__delete {
+  height: 25px;
+  width: 30%;
+  background-color: #f83c3c;
+  margin-left: 5%;
+  color: azure;
+  border: none;
+}
+
+.add__button {
+  background-color: rgb(16, 95, 220);
+  color: wheat;
+  border: none;
+  width: 30%;
+  height: 25px;
+  border-radius: 10px;
+}
+
+.modal_headings {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 30px 0 30px;
+}
+
+.modal_event {
+  display: flex;
+  justify-content: space-between;
+  padding: 5px;
+  align-items: center;
+}
+
+.modal__hr {
+  border: 1px solid;
+}
+
+/* make the text inside the input field bold */
+input[type="text"] {
+  font-weight: bold;
+}
+
 @media (max-width: 700px) {
   .container {
-    width: auto;
+    width: 95%;
     overflow-x: auto;
+  }
+
+  .profile_container {
+    position: relative;
+    margin-top: 0;
+    margin-bottom: 4vw;
+  }
+  .monthControl {
+    margin-top: 0;
+  }
+  .modal-content {
+    width: 70%;
+  }
+  .modal-content-edit {
+    width: 70%;
   }
 }

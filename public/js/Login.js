@@ -34,10 +34,10 @@ function login() {
       console.log(data); // JSON data parsed by `data.json()` call
       if (data.status == true) {
         alert("User successfully logged in");
-        window.location.href = "/";
-        localStorage.calUserName = res.data.username;
+        localStorage.calUserName = data.username;
         localStorage.calEmail = email;
         localStorage.calStatus = "true";
+        window.location.href = "/";
       } else if (data.status == false) {
         alert("Wrong Credentials!");
       } else {

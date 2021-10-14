@@ -11,6 +11,9 @@
 
 <body>
     <div class="outer_container">
+        <button onClick="logout()" class="logout_button">
+            Log Out ↩
+        </button>
         <div class="profile_container">
             <img src="/public/images/userProfile.png" alt="">
             <div id="profileName" class="profile_name"></div>
@@ -42,9 +45,7 @@
         <div id="prev-month" onclick="ChangeDateDec()"></div>
         <div id="next-month" onclick="ChangeDateInc()"></div>
         <div class="container">
-            <button onClick="logout()" class="logout_button">
-                Log Out ↩
-            </button>
+
             <table CELLSPACING="10" CELLPADDING="5">
                 <tr>
                     <th>Sunday</th>
@@ -105,10 +106,50 @@
                     <td onclick="dailyView(event);" id="thirtysix"></td>
                     <td onclick="dailyView(event);" id="thirtyseven"></td>
                 </tr>
-
             </table>
         </div>
     </div>
+
+    <div id="myModal" class="modal">
+        <!-- Modal content -->
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div>
+                <h1 id="modalHead" class="modal_head"></h1>
+                <div class="edit__details">
+                    <div class="modal_headings">
+                        <h2>Time</h2>
+                        <h2 style="margin-right: 15%;">Events</h2>
+                        <h2></h2>
+                    </div>
+                    <hr class="modal__hr">
+                    <div id="modalEvents">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="myModalEdit" class="modal__edit">
+        <!-- Modal content -->
+        <div class="modal-content-edit">
+            <span class="close-edit">&times;</span>
+            <div>
+                <h1 style="text-align: center;">Enter the Event!</h1>
+                <input class="edit__input" type="text" id="editInput" name="editTitle">
+                <div class="edit__details">
+                    <hr>
+                    <h3 id="editTime">Time</h3>
+                    <h3 id="editDay">Day</h3>
+                    <h3 id="editMonth">Month</h3>
+                    <h3 id="editYear">Year</h3>
+                    <button onclick="changeEvent(event)" id="ide" class="edit__change">Change</button>
+                    <button onclick="deleteEvent()" class="edit__delete">🗑 Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="/public/script.js"></script>
 </body>
 

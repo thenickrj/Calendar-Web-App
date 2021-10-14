@@ -276,3 +276,19 @@ input[type="text"] {
 .right__arrow:hover {
   transform: rotate(360deg) scale(1.8);
 }
+
+@media (max-width: 700px) {
+  .container_dailyView {
+    width: fit-content;
+  }
+  .event {
+    min-width: 60vw;
+  }
+
+  .modal-content {
+    width: 70%;
+  }
+  .modal-content-add {
+    width: 70%;
+  }
+}
