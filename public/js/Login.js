@@ -42,7 +42,7 @@ function login() {
         alert("User successfully logged in");
 
         localStorage.setItem("calInfo", JSON.stringify(data));
-        window.location.href = "/";
+        (window.location.href = "/"), true;
       }
     });
   } else if (
