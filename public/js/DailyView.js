@@ -32,14 +32,12 @@ const months = [
 var day31 = [0, 2, 4, 6, 7, 9, 11];
 var day30 = [3, 5, 8, 10];
 
+// Getting the day,month and year from the URL
 var url = window.location.pathname.split("/");
+
 var day = parseInt(url[2].split("=")[1]);
-console.log(day);
 var month = url[3].split("=")[1];
 var year = parseInt(url[4].split("=")[1]);
-console.log("A", url);
-console.log("C", url[3].split("=")[1]);
-console.log("C", month);
 
 window.onload = function () {
   var url = "/";
@@ -54,6 +52,7 @@ window.onload = function () {
   // calculateNextMonth();
 };
 
+// function to go a date before
 function dateDecrementChange() {
   if (day == 1) {
     if (month == "January") {
@@ -83,6 +82,7 @@ function checkDeletedEvents() {
   fetchEvents();
 }
 
+// function to go a date next
 function dateIncrementChange() {
   if (day == 30 && day31.includes(months.indexOf(month))) {
     console.log("31", month);
@@ -106,6 +106,7 @@ function dateIncrementChange() {
   checkDeletedEvents();
 }
 
+// function to add event and open the pop up
 function addEvent(time) {
   console.log(
     "new event should be added at " + time + "," + month + "," + year
@@ -130,6 +131,7 @@ function addEvent(time) {
   };
 }
 
+// function to get the values and do a post request the modify the event in the database
 function changeEvent(e) {
   // console.log(document.getElementById("ide").value)
   var id = document.getElementById("ide").value;
@@ -178,6 +180,7 @@ function changeEvent(e) {
   });
 }
 
+// function to delete the event from the database
 function deleteEvent() {
   console.log(document.getElementById("ide").value);
   var id = document.getElementById("ide").value;
@@ -199,13 +202,16 @@ function deleteEvent() {
     return response.json(); // parses JSON response into native JavaScript objects
   }
 
-  deleteData("http://localhost:3000/event/delete=" + id).then((data) => {
-    alert(data);
-    modal.style.display = "none";
-    checkDeletedEvents();
-  });
+  if (confirm("Are you sure you want to delete this event?")) {
+    deleteData("http://localhost:3000/event/delete=" + id).then((data) => {
+      alert(data);
+      modal.style.display = "none";
+      checkDeletedEvents();
+    });
+  }
 }
 
+// function to submit a newly created event
 function addEventSubmit(e) {
   var eventInput = document.getElementById("addInput");
   var TimeValue = document.getElementById("addTime").innerHTML;
@@ -262,6 +268,7 @@ function check(element) {
   console.log(element._id);
 }
 
+// function to open the popup for editing the event
 function editEventModal(element) {
   console.log(element._id);
 
@@ -289,15 +296,9 @@ function editEventModal(element) {
   span.onclick = function () {
     modal.style.display = "none";
   };
-
-  // var modalContent = document.createElement("div");
-  // modalContent.classList.add("modal-content");
-  // var close = document.createElement("span")
-  // close.onclick = function () {
-  //     modal.style.display = "none";
-  // }
 }
 
+// function to fetch the events based on the day
 async function fetchEvents() {
   var title = document.getElementById("daily__head");
   title.innerHTML = `${day} ${month} ${year}`;
@@ -338,6 +339,7 @@ async function fetchEvents() {
   // console.log(data.map((events) => (events.time)))
 }
 
+// function to remove all the child elements
 function removeAllChildNodes(parent) {
   while (parent.firstChild) {
     parent.removeChild(parent.firstChild);
