@@ -1,3 +1,15 @@
+var calInfo;
+
+if (localStorage.getItem("calInfo") === null) {
+  window.location.href = "/login";
+} else {
+  calInfo = JSON.parse(`${localStorage.calInfo}`);
+  console.log(localStorage.calInfo["email"]);
+  console.log(localStorage.calInfo);
+  console.log(calInfo);
+  console.log(calInfo.email);
+}
+
 var events;
 var modal = document.getElementById("myModal");
 var modalAdd = document.getElementById("myModal_add");
@@ -42,7 +54,7 @@ var year = parseInt(url[4].split("=")[1]);
 window.onload = function () {
   var url = "/";
 
-  if (localStorage.calStatus !== "true") {
+  if (localStorage.getItem("calInfo") === null) {
     window.location.href = "/login";
   }
   fetchEvents();
@@ -147,7 +159,7 @@ function changeEvent(e) {
   }
 
   const data = {
-    email: localStorage.calEmail,
+    email: calInfo.email,
     date: day,
     month: month,
     year: year,
@@ -224,7 +236,7 @@ function addEventSubmit(e) {
     time = parseInt(TimeValue[1]);
   }
   const data = {
-    email: localStorage.calEmail,
+    email: calInfo.email,
     date: day,
     month: month,
     year: year,
@@ -304,7 +316,7 @@ async function fetchEvents() {
   title.innerHTML = `${day} ${month} ${year}`;
   const response = await fetch(
     "http://localhost:3000/events/user=" +
-      localStorage.calEmail +
+      calInfo.email +
       "/date=" +
       day +
       "/month=" +

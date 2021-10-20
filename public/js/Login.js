@@ -32,16 +32,16 @@ function login() {
     }
     postData("http://localhost:3000/login", data).then((data) => {
       console.log(data); // JSON data parsed by `data.json()` call
-      if (data.status == true) {
-        alert("User successfully logged in");
-        localStorage.calUserName = data.username;
-        localStorage.calEmail = email;
-        localStorage.calStatus = "true";
-        window.location.href = "/";
-      } else if (data.status == false) {
-        alert("Wrong Credentials!");
-      } else {
+      if (data == "Invalid Credentials") {
         alert(data);
+        // localStorage.calUserName = data.username;
+        // localStorage.calEmail = email;
+        // localStorage.calStatus = "true";
+        // window.location.href = "/";
+      } else {
+        alert("User successfully logged in");
+        localStorage.setItem("calInfo", JSON.stringify(data));
+        window.location.href = "/";
       }
     });
   } else if (

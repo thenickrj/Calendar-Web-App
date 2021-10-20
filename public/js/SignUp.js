@@ -47,10 +47,16 @@ function register() {
     password !== undefined
   ) {
     postData("http://localhost:3000/signup", data).then((data) => {
-      alert(data); // JSON data parsed by `data.json()` call
-      if (data === "New User Signed Up!!") {
+      console.log(data);
+      if ((data = "Account already exist")) {
+        alert(data);
+      } else {
         window.location.href = "/login";
       }
+      // alert(data); // JSON data parsed by `data.json()` call
+      // if (data === "New User Signed Up!!") {
+      //   window.location.href = "/login";
+      // }
     });
   } else if (
     (email == "" || email == undefined) &&

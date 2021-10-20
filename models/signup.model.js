@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const bcrypt = require("bcryptjs");
 
 const Schema = mongoose.Schema;
 
@@ -13,6 +14,19 @@ const signUpSchema = new Schema(
     timestamps: true,
   }
 );
+
+signUpSchema.pre("save", async function (next) {
+  if (!this.isModified("password")) {
+    next();
+  }
+
+  const salt = await bcrypt.genSalt(10);
+  this.password = await bcrypt.hash(this.password, salt);
+});
+
+signUpSchema.methods.matchPassword = async function (enteredPassword) {
+  return await bcrypt.compare(enteredPassword, this.password);
+};
 
 const SignUp = mongoose.model("Signup", signUpSchema);
 

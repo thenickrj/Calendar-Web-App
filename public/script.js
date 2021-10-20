@@ -1,3 +1,15 @@
+var calInfo;
+
+if (localStorage.getItem("calInfo") === null) {
+  window.location.href = "/login";
+} else {
+  calInfo = JSON.parse(`${localStorage.calInfo}`);
+  console.log(localStorage.calInfo["email"]);
+  console.log(localStorage.calInfo);
+  console.log(calInfo);
+  console.log(calInfo.email);
+}
+
 const months = [
   "January",
   "February",
@@ -67,7 +79,7 @@ var ids = [
 
 var eventUrl =
   "http://localhost:3000/events/user=" +
-  localStorage.calEmail +
+  calInfo.email +
   "/month=" +
   months[date.getMonth()] +
   "/year=" +
@@ -75,7 +87,7 @@ var eventUrl =
 
 fetch(
   "http://localhost:3000/events/user=" +
-    localStorage.calEmail +
+    calInfo.email +
     "/month=" +
     months[date.getMonth()] +
     "/year=" +
@@ -108,9 +120,19 @@ function appendData(data) {
 window.onload = function () {
   var url = "/";
 
-  if (localStorage.calStatus !== "true") {
-    window.location.href = "/login";
-  }
+  // if (localStorage.calStatus !== "true") {
+  //   window.location.href = "/login";
+  // }
+
+  // if (localStorage.getItem("calInfo") === null) {
+  //   window.location.href = "/login";
+  // } else {
+  //   calInfo = JSON.parse(`${localStorage.calInfo}`);
+  //   console.log(localStorage.calInfo["email"]);
+  //   console.log(localStorage.calInfo);
+  //   console.log(calInfo);
+  //   console.log(calInfo.email);
+  // }
   fetchEvents();
   loadName();
   monthYear();
@@ -120,8 +142,8 @@ window.onload = function () {
 };
 
 function loadName() {
-  document.getElementById("profileName").innerHTML = localStorage.calUserName
-    ? `Hello, ${localStorage.calUserName}`
+  document.getElementById("profileName").innerHTML = calInfo.name
+    ? `Hello, ${calInfo.name}`
     : "Hello, User";
 }
 
@@ -194,7 +216,8 @@ function ChangeYearDec() {
 
 function logout() {
   if (confirm("Are you sure you want to logout?")) {
-    localStorage.calStatus = false;
+    // localStorage.calStatus = false;
+    localStorage.removeItem("calInfo");
     window.location.href = "/login";
   }
 }
@@ -202,7 +225,7 @@ function logout() {
 async function fetchEvents() {
   const response = await fetch(
     "http://localhost:3000/events/user=" +
-      localStorage.calEmail +
+      calInfo.email +
       "/month=" +
       months[date.getMonth()] +
       "/year=" +
@@ -245,7 +268,7 @@ async function fetchDailyEvents(datePara) {
   console.log(`${datePara} ${months[date.getMonth()]} ${date.getFullYear()}`);
   const response = await fetch(
     "http://localhost:3000/events/user=" +
-      localStorage.calEmail +
+      calInfo.email +
       "/date=" +
       datePara +
       "/month=" +
@@ -369,7 +392,7 @@ function changeEvent(element) {
   year = parseInt(year[1]);
 
   const data = {
-    email: localStorage.calEmail,
+    email: calInfo.email,
     date: day,
     month: month,
     year: year,
@@ -445,7 +468,7 @@ function deleteEvent(element) {
 async function removeDeletedEvents() {
   const response = await fetch(
     "http://localhost:3000/events/user=" +
-      localStorage.calEmail +
+      calInfo.email +
       "/month=" +
       months[date.getMonth()] +
       "/year=" +
