@@ -3,11 +3,8 @@ var calInfo;
 if (localStorage.getItem("calInfo") === null) {
   window.location.href = "/login";
 } else {
+  // get the response from the localStorage
   calInfo = JSON.parse(`${localStorage.calInfo}`);
-  console.log(localStorage.calInfo["email"]);
-  console.log(localStorage.calInfo);
-  console.log(calInfo);
-  console.log(calInfo.email);
 }
 
 const months = [
@@ -235,8 +232,6 @@ async function fetchEvents() {
   eventsDate = data.map((event) => {
     return event.date;
   });
-  console.log(data);
-  console.log(eventsDate);
 
   // ids.forEach((element) => {
   //   removeAllChildNodes(document.getElementById(element));

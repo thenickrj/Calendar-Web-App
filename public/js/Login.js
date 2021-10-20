@@ -39,7 +39,13 @@ function login() {
         // localStorage.calStatus = "true";
         // window.location.href = "/";
       } else {
-        alert("User successfully logged in");
+        var mobile =
+          /iphone|ipad|ipod|android|blackberry|mini|windows\sce|palm/i.test(
+            navigator.userAgent.toLowerCase()
+          );
+        if (!mobile) {
+          alert("User successfully logged in");
+        }
         localStorage.setItem("calInfo", JSON.stringify(data));
         window.location.href = "/";
       }
