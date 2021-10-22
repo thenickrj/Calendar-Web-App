@@ -13,7 +13,7 @@ router.route("/users").get((req, res) => {
 });
 
 // Route to check if the login credentials are valid
-router.route("/login").post(
+router.route("/signin").post(
   asyncHandler(async (req, res) => {
     const email = req.body.email;
     const password = req.body.password;
@@ -47,7 +47,7 @@ router.route("/login").post(
 // });
 
 // Route to a signup a new user
-router.route("/signup").post((req, res) => {
+router.route("/register").post((req, res) => {
   const name = req.body.name;
   const email = req.body.email;
   const password = req.body.password;

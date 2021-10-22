@@ -46,7 +46,7 @@ function register() {
     password !== "" &&
     password !== undefined
   ) {
-    postData("https://thenick-calendar.herokuapp.com/signup", data).then(
+    postData("https://thenick-calendar.herokuapp.com/register", data).then(
       (data) => {
         console.log(data);
         if ((data = "Account already exist")) {
