@@ -30,21 +30,23 @@ function login() {
       });
       return response.json(); // parses JSON response into native JavaScript objects
     }
-    postData("http://localhost:3000/login", data).then((data) => {
-      console.log(data); // JSON data parsed by `data.json()` call
-      if (data == "Invalid Credentials") {
-        alert(data);
-        // localStorage.calUserName = data.username;
-        // localStorage.calEmail = email;
-        // localStorage.calStatus = "true";
-        // window.location.href = "/";
-      } else {
-        alert("User successfully logged in");
+    postData("https://thenick-calendar.herokuapp.com//login", data).then(
+      (data) => {
+        console.log(data); // JSON data parsed by `data.json()` call
+        if (data == "Invalid Credentials") {
+          alert(data);
+          // localStorage.calUserName = data.username;
+          // localStorage.calEmail = email;
+          // localStorage.calStatus = "true";
+          // window.location.href = "/";
+        } else {
+          alert("User successfully logged in");
 
-        localStorage.setItem("calInfo", JSON.stringify(data));
-        (window.location.href = "/"), true;
+          localStorage.setItem("calInfo", JSON.stringify(data));
+          (window.location.href = "/"), true;
+        }
       }
-    });
+    );
   } else if (
     (email == "" || email == undefined) &&
     (password == "" || password == undefined)
