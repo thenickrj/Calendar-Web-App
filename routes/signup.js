@@ -64,7 +64,10 @@ router.route("/register").post((req, res) => {
         token: generateToken(user._id),
       })
     )
-    .catch((err) => res.json("Account already exist"));
+    .catch((err) => {
+      res.json(err);
+      console.log(err);
+    });
 
   // newSignUp
   //   .save()
