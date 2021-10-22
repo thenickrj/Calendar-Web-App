@@ -260,7 +260,6 @@ async function fetchDailyEvents(datePara) {
     months[date.getMonth()]
   } ${date.getFullYear()}`;
 
-  console.log(`${datePara} ${months[date.getMonth()]} ${date.getFullYear()}`);
   const response = await fetch(
     "https://thenick-calendar.herokuapp.com/events/user=" +
       calInfo.email +
@@ -272,7 +271,6 @@ async function fetchDailyEvents(datePara) {
       date.getFullYear()
   );
   const data = await response.json();
-  console.log(data);
 
   var eventContainer = document.getElementById("modalEvents");
 
@@ -283,7 +281,6 @@ async function fetchDailyEvents(datePara) {
   data.sort((a, b) => (a.time > b.time ? 1 : b.time > a.time ? -1 : 0));
 
   data.forEach((element) => {
-    console.log(element.event, element.time);
     var modalEvent = document.createElement("div");
     modalEvent.classList.add("modal_event");
     var timeMeridian = element.time > 11 ? "PM" : "AM";
@@ -327,10 +324,7 @@ async function fetchDailyEvents(datePara) {
 }
 
 function editEventModal(element) {
-  console.log(element._id);
-
   modalEdit.style.display = "block";
-  console.log(modal.style.display);
   var time = element.time;
   // Get the <span> element that closes the modal
   var span = document.getElementsByClassName("close-edit")[0];
@@ -365,7 +359,6 @@ function editEventModal(element) {
 function changeEvent(element) {
   var id = document.getElementById("ide").value;
   var eventInput = document.getElementById("editInput");
-  console.log(element);
   var time = document.getElementById("editTime").innerHTML;
   time = time.split(":");
   time = time[1].split(" ");
@@ -381,7 +374,7 @@ function changeEvent(element) {
   month = month.split(":");
   month = month[1].split(" ");
   month = month[1];
-  console.log(month);
+
   var year = document.getElementById("editYear").innerHTML;
   year = year.split(":");
   year = parseInt(year[1]);
@@ -394,7 +387,7 @@ function changeEvent(element) {
     time: time,
     event: eventInput.value,
   };
-  console.log(data);
+
   async function editData(url, data) {
     // Default options are marked with *
     const response = await fetch(url, {
@@ -432,7 +425,6 @@ function deleteEvent(element) {
   } else {
     id = document.getElementById("ide").value;
   }
-  console.log(id);
 
   async function deleteData(url, data) {
     // Default options are marked with *
@@ -478,8 +470,6 @@ async function removeDeletedEvents() {
   eventsDate = data.map((event) => {
     return event.date;
   });
-  console.log(data);
-  console.log(eventsDate);
 
   ids.forEach((element) => {
     var date = document.getElementById(element).innerHTML;
@@ -506,11 +496,8 @@ function eventCheck(idCheck) {
 }
 
 function dailyView(e) {
-  console.log(e.target.innerHTML);
   var dayPara = e.target.innerHTML.split("<");
-  console.log(e.target.innerHTML[0]);
-  console.log(dayPara[0]);
-  console.log(months[date.getMonth()], e.target.innerHTML, date.getFullYear());
+
   if (dayPara[0]) {
     window.location.href = `/dailyview/day=${dayPara[0]}/month=${
       months[date.getMonth()]
@@ -758,7 +745,6 @@ function findDates() {
       dateStart++;
       document.getElementById("seventh").innerHTML = dateStart;
       addDates();
-      console.log("case 3");
 
       break;
 

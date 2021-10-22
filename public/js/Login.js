@@ -7,7 +7,7 @@ function validateEmail(emailCheck) {
 function login() {
   var password = document.getElementById("password").value;
   var email = document.getElementById("email").value;
-  console.log(password, email);
+
   if (validateEmail(email) && password !== "" && password !== undefined) {
     const data = {
       email: email,
@@ -32,7 +32,7 @@ function login() {
     }
     postData("https://thenick-calendar.herokuapp.com/signin", data).then(
       (data) => {
-        console.log(data); // JSON data parsed by `data.json()` call
+        // console.log(data); // JSON data parsed by `data.json()` call
         if (data == "Invalid Credentials") {
           alert(data);
           // localStorage.calUserName = data.username;

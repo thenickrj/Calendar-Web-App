@@ -60,7 +60,6 @@ function register() {
         // }
       }
     );
-    console.log(data);
   } else if (
     (email == "" || email == undefined) &&
     (password == "" || password == undefined) &&
