@@ -48,10 +48,10 @@ function register() {
   ) {
     postData("https://thenick-calendar.herokuapp.com/register", data).then(
       (data) => {
-        console.log(data);
-        if ((data = "Account already exist")) {
+        if (data === "Account already exist") {
           alert(data);
         } else {
+          alert("Account Created");
           window.location.href = "/login";
         }
         // alert(data); // JSON data parsed by `data.json()` call
@@ -60,6 +60,7 @@ function register() {
         // }
       }
     );
+    console.log(data);
   } else if (
     (email == "" || email == undefined) &&
     (password == "" || password == undefined) &&
