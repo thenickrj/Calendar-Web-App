@@ -4,10 +4,6 @@ if (localStorage.getItem("calInfo") === null) {
   window.location.href = "/login";
 } else {
   calInfo = JSON.parse(`${localStorage.calInfo}`);
-  console.log(localStorage.calInfo["email"]);
-  console.log(localStorage.calInfo);
-  console.log(calInfo);
-  console.log(calInfo.email);
 }
 
 var events;
@@ -97,7 +93,6 @@ function checkDeletedEvents() {
 // function to go a date next
 function dateIncrementChange() {
   if (day == 30 && day31.includes(months.indexOf(month))) {
-    console.log("31", month);
     day++;
   } else if (
     (day == 28 && months.indexOf(month) == 1) ||
@@ -120,9 +115,6 @@ function dateIncrementChange() {
 
 // function to add event and open the pop up
 function addEvent(time) {
-  console.log(
-    "new event should be added at " + time + "," + month + "," + year
-  );
   modalAdd.style.display = "block";
   var span = document.getElementsByClassName("close-add")[0];
   var timeMeridian = time > 11 ? "PM" : "AM";
@@ -135,8 +127,6 @@ function addEvent(time) {
   document.getElementById("addDay").innerHTML = "Day: " + day;
   document.getElementById("addMonth").innerHTML = "Month: " + month;
   document.getElementById("addYear").innerHTML = "Year: " + year;
-  console.log(eventInput);
-  console.log(month);
 
   span.onclick = function () {
     modalAdd.style.display = "none";
@@ -166,7 +156,6 @@ function changeEvent(e) {
     time: time,
     event: eventInput.value,
   };
-  console.log(data);
   async function editData(url, data) {
     // Default options are marked with *
     const response = await fetch(url, {
@@ -197,7 +186,6 @@ function changeEvent(e) {
 
 // function to delete the event from the database
 function deleteEvent() {
-  console.log(document.getElementById("ide").value);
   var id = document.getElementById("ide").value;
   async function deleteData(url, data) {
     // Default options are marked with *
@@ -233,7 +221,6 @@ function addEventSubmit(e) {
   var eventInput = document.getElementById("addInput");
   var TimeValue = document.getElementById("addTime").innerHTML;
   TimeValue = TimeValue.split(" ");
-  console.log(TimeValue);
   var time;
   if (TimeValue[2] == "PM" && TimeValue[1] != "12") {
     time = parseInt(TimeValue[1]) + 12;
@@ -270,7 +257,6 @@ function addEventSubmit(e) {
   if (eventInput.value !== "") {
     postData("https://thenick-calendar.herokuapp.com/events", data).then(
       (data) => {
-        console.log(data);
         alert(data);
         modalAdd.style.display = "none";
         fetchEvents();
@@ -289,10 +275,7 @@ function check(element) {
 
 // function to open the popup for editing the event
 function editEventModal(element) {
-  console.log(element._id);
-
   modal.style.display = "block";
-  console.log(modal.style.display);
   var time = element.time;
   // Get the <span> element that closes the modal
   var span = document.getElementsByClassName("close")[0];
@@ -332,7 +315,6 @@ async function fetchEvents() {
       year
   );
   const data = await response.json();
-  console.log(data);
 
   data.forEach((element) => {
     removeAllChildNodes(document.getElementById(element.time));
