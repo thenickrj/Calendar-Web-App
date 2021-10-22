@@ -186,7 +186,7 @@ function changeEvent(e) {
   }
 
   editData(
-    "https://thenick-calendar.herokuapp.com//events/update=" + id,
+    "https://thenick-calendar.herokuapp.com/events/update=" + id,
     data
   ).then((data) => {
     alert(data);
@@ -219,7 +219,7 @@ function deleteEvent() {
 
   if (confirm("Are you sure you want to delete this event?")) {
     deleteData(
-      "https://thenick-calendar.herokuapp.com//event/delete=" + id
+      "https://thenick-calendar.herokuapp.com/event/delete=" + id
     ).then((data) => {
       alert(data);
       modal.style.display = "none";
@@ -268,7 +268,7 @@ function addEventSubmit(e) {
   }
 
   if (eventInput.value !== "") {
-    postData("https://thenick-calendar.herokuapp.com//events", data).then(
+    postData("https://thenick-calendar.herokuapp.com/events", data).then(
       (data) => {
         console.log(data);
         alert(data);
@@ -322,7 +322,7 @@ async function fetchEvents() {
   var title = document.getElementById("daily__head");
   title.innerHTML = `${day} ${month} ${year}`;
   const response = await fetch(
-    "https://thenick-calendar.herokuapp.com//events/user=" +
+    "https://thenick-calendar.herokuapp.com/events/user=" +
       calInfo.email +
       "/date=" +
       day +

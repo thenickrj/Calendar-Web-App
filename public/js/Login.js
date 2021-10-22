@@ -30,7 +30,7 @@ function login() {
       });
       return response.json(); // parses JSON response into native JavaScript objects
     }
-    postData("https://thenick-calendar.herokuapp.com//login", data).then(
+    postData("https://thenick-calendar.herokuapp.com/login", data).then(
       (data) => {
         console.log(data); // JSON data parsed by `data.json()` call
         if (data == "Invalid Credentials") {

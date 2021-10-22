@@ -75,7 +75,7 @@ var ids = [
 ];
 
 var eventUrl =
-  "http://localhost:3000/events/user=" +
+  "https://thenick-calendar.herokuapp.com/events/user=" +
   calInfo.email +
   "/month=" +
   months[date.getMonth()] +
@@ -83,7 +83,7 @@ var eventUrl =
   date.getFullYear();
 
 fetch(
-  "http://localhost:3000/events/user=" +
+  "https://thenick-calendar.herokuapp.com/events/user=" +
     calInfo.email +
     "/month=" +
     months[date.getMonth()] +
@@ -221,7 +221,7 @@ function logout() {
 
 async function fetchEvents() {
   const response = await fetch(
-    "http://localhost:3000/events/user=" +
+    "https://thenick-calendar.herokuapp.com/events/user=" +
       calInfo.email +
       "/month=" +
       months[date.getMonth()] +
