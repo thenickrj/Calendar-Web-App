@@ -262,7 +262,7 @@ async function fetchDailyEvents(datePara) {
 
   console.log(`${datePara} ${months[date.getMonth()]} ${date.getFullYear()}`);
   const response = await fetch(
-    "http://localhost:3000/events/user=" +
+    "https://thenick-calendar.herokuapp.com/events/user=" +
       calInfo.email +
       "/date=" +
       datePara +
@@ -413,7 +413,10 @@ function changeEvent(element) {
     return response.json(); // parses JSON response into native JavaScript objects
   }
 
-  editData("http://localhost:3000/events/update=" + id, data).then((data) => {
+  editData(
+    "https://thenick-calendar.herokuapp.com/events/update=" + id,
+    data
+  ).then((data) => {
     alert(data);
     modalEdit.style.display = "none";
     modal.style.display = "none";
@@ -450,7 +453,9 @@ function deleteEvent(element) {
   }
 
   if (confirm("Are you sure you want to delete this event?")) {
-    deleteData("http://localhost:3000/event/delete=" + id).then((data) => {
+    deleteData(
+      "https://thenick-calendar.herokuapp.com/event/delete=" + id
+    ).then((data) => {
       alert(data);
       modal.style.display = "none";
       modalEdit.style.display = "none";
@@ -462,7 +467,7 @@ function deleteEvent(element) {
 
 async function removeDeletedEvents() {
   const response = await fetch(
-    "http://localhost:3000/events/user=" +
+    "https://thenick-calendar.herokuapp.com/events/user=" +
       calInfo.email +
       "/month=" +
       months[date.getMonth()] +
