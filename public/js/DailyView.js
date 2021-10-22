@@ -185,7 +185,10 @@ function changeEvent(e) {
     return response.json(); // parses JSON response into native JavaScript objects
   }
 
-  editData("http://localhost:3000/events/update=" + id, data).then((data) => {
+  editData(
+    "https://thenick-calendar.herokuapp.com//events/update=" + id,
+    data
+  ).then((data) => {
     alert(data);
     modal.style.display = "none";
     fetchEvents();
