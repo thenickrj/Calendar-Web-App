@@ -688,14 +688,19 @@ function findDates() {
   switch (date.getDay()) {
     case 0:
       document.getElementById("first").innerHTML = dateStart;
+      todayDateCheck("first");
       dateStart++;
       document.getElementById("second").innerHTML = dateStart;
+      todayDateCheck("second");
       dateStart++;
       document.getElementById("third").innerHTML = dateStart;
+      todayDateCheck("third");
       dateStart++;
       document.getElementById("fourth").innerHTML = dateStart;
+      todayDateCheck("fourth");
       dateStart++;
       document.getElementById("fifth").innerHTML = dateStart;
+      todayDateCheck("fifth");
       dateStart++;
       document.getElementById("sixth").innerHTML = dateStart;
       dateStart++;
@@ -706,30 +711,40 @@ function findDates() {
     case 1:
       document.getElementById("first").innerHTML = "";
       document.getElementById("second").innerHTML = dateStart;
+      todayDateCheck("second");
       dateStart++;
       document.getElementById("third").innerHTML = dateStart;
+      todayDateCheck("third");
       dateStart++;
       document.getElementById("fourth").innerHTML = dateStart;
+      todayDateCheck("fourth");
       dateStart++;
       document.getElementById("fifth").innerHTML = dateStart;
+      todayDateCheck("fifth");
       dateStart++;
       document.getElementById("sixth").innerHTML = dateStart;
+      todayDateCheck("sixth");
       dateStart++;
       document.getElementById("seventh").innerHTML = dateStart;
+      todayDateCheck("seventh");
       addDates();
       break;
     case 2:
       document.getElementById("first").innerHTML = "";
       document.getElementById("second").innerHTML = "";
       document.getElementById("third").innerHTML = dateStart;
+      todayDateCheck("third");
       dateStart++;
       document.getElementById("fourth").innerHTML = dateStart;
       dateStart++;
       document.getElementById("fifth").innerHTML = dateStart;
+      todayDateCheck("fifth");
       dateStart++;
       document.getElementById("sixth").innerHTML = dateStart;
+      todayDateCheck("sixth");
       dateStart++;
       document.getElementById("seventh").innerHTML = dateStart;
+      todayDateCheck("seventh");
       addDates();
       break;
 
@@ -738,12 +753,16 @@ function findDates() {
       document.getElementById("second").innerHTML = "";
       document.getElementById("third").innerHTML = "";
       document.getElementById("fourth").innerHTML = dateStart;
+      todayDateCheck("fourth");
       dateStart++;
       document.getElementById("fifth").innerHTML = dateStart;
+      todayDateCheck("fifth");
       dateStart++;
       document.getElementById("sixth").innerHTML = dateStart;
+      todayDateCheck("sixth");
       dateStart++;
       document.getElementById("seventh").innerHTML = dateStart;
+      todayDateCheck("seventh");
       addDates();
 
       break;
@@ -754,10 +773,13 @@ function findDates() {
       document.getElementById("third").innerHTML = "";
       document.getElementById("fourth").innerHTML = "";
       document.getElementById("fifth").innerHTML = dateStart;
+      todayDateCheck("fifth");
       dateStart++;
       document.getElementById("sixth").innerHTML = dateStart;
+      todayDateCheck("sixth");
       dateStart++;
       document.getElementById("seventh").innerHTML = dateStart;
+      todayDateCheck("seventh");
       addDates();
       break;
 
@@ -768,8 +790,10 @@ function findDates() {
       document.getElementById("fourth").innerHTML = "";
       document.getElementById("fifth").innerHTML = "";
       document.getElementById("sixth").innerHTML = dateStart;
+      todayDateCheck("sixth");
       dateStart++;
       document.getElementById("seventh").innerHTML = dateStart;
+      todayDateCheck("seventh");
       addDates();
       // firstDay.innerHTML = 1;
       // document.getElementById("seventh").innerHTML=;
@@ -781,8 +805,8 @@ function findDates() {
       document.getElementById("fourth").innerHTML = "";
       document.getElementById("fifth").innerHTML = "";
       document.getElementById("sixth").innerHTML = "";
-
       document.getElementById("seventh").innerHTML = dateStart;
+      todayDateCheck("seventh");
       addDates();
       break;
   }
