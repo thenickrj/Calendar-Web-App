@@ -535,18 +535,23 @@ function findDates() {
     dateStart++;
     document.getElementById("eight").innerHTML = dateStart;
     todayDateCheck("eight");
+
     dateStart++;
     document.getElementById("nine").innerHTML = dateStart;
     todayDateCheck("nine");
+
     dateStart++;
     document.getElementById("ten").innerHTML = dateStart;
     todayDateCheck("ten");
+
     dateStart++;
     document.getElementById("eleven").innerHTML = dateStart;
     todayDateCheck("eleven");
+
     dateStart++;
     document.getElementById("twelve").innerHTML = dateStart;
     todayDateCheck("twelve");
+
     dateStart++;
     document.getElementById("thirteen").innerHTML = dateStart;
     todayDateCheck("thirteen");

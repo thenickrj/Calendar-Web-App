@@ -185,7 +185,12 @@ a:hover {
 }
 
 .signup_redirect {
-  margin-top: 3%;
+  /* margin-top: 3%; */
   padding: 4px;
+  text-align: center;
+}
+
+.testLogin {
+  padding-top: 3%;
   text-align: center;
 }
