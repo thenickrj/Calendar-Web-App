@@ -209,6 +209,7 @@ button {
 }
 
 .arrowUp {
+  cursor: pointer;
   width: 32px;
   justify-content: center;
   margin: auto;
@@ -221,6 +222,7 @@ button {
 }
 
 .arrowDown {
+  cursor: pointer;
   width: 32px;
   justify-content: center;
   margin: auto;
