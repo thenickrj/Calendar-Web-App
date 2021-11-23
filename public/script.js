@@ -138,6 +138,15 @@ window.onload = function () {
   calculateNextMonth();
 };
 
+function popUpNotify(data) {
+  var x = document.getElementById("snackbar");
+  x.innerHTML = data;
+  x.className = "show";
+  setTimeout(function () {
+    x.className = x.className.replace("show", "");
+  }, 3000);
+}
+
 function loadName() {
   document.getElementById("profileName").innerHTML = calInfo.name
     ? `Hello, ${calInfo.name}`
@@ -410,7 +419,8 @@ function changeEvent(element) {
     "https://thenick-calendar.herokuapp.com/events/update=" + id,
     data
   ).then((data) => {
-    alert(data);
+    // alert(data);
+    popUpNotify(data);
     modalEdit.style.display = "none";
     modal.style.display = "none";
 
@@ -448,7 +458,8 @@ function deleteEvent(element) {
     deleteData(
       "https://thenick-calendar.herokuapp.com/event/delete=" + id
     ).then((data) => {
-      alert(data);
+      // alert(data);
+      popUpNotify(data);
       modal.style.display = "none";
       modalEdit.style.display = "none";
       // checkDeletedEvents();

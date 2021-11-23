@@ -60,6 +60,15 @@ window.onload = function () {
   // calculateNextMonth();
 };
 
+function popUpNotify(data) {
+  var x = document.getElementById("snackbar");
+  x.innerHTML = data;
+  x.className = "show";
+  setTimeout(function () {
+    x.className = x.className.replace("show", "");
+  }, 3000);
+}
+
 // function to go a date before
 function dateDecrementChange() {
   if (day == 1) {
@@ -178,7 +187,8 @@ function changeEvent(e) {
     "https://thenick-calendar.herokuapp.com/events/update=" + id,
     data
   ).then((data) => {
-    alert(data);
+    // alert(data);
+    popUpNotify(data);
     modal.style.display = "none";
     fetchEvents();
   });
@@ -209,7 +219,8 @@ function deleteEvent() {
     deleteData(
       "https://thenick-calendar.herokuapp.com/event/delete=" + id
     ).then((data) => {
-      alert(data);
+      // alert(data);
+      popUpNotify(data);
       modal.style.display = "none";
       checkDeletedEvents();
     });
@@ -257,7 +268,8 @@ function addEventSubmit(e) {
   if (eventInput.value !== "") {
     postData("https://thenick-calendar.herokuapp.com/events", data).then(
       (data) => {
-        alert(data);
+        // alert(data);
+        popUpNotify(data);
         modalAdd.style.display = "none";
         fetchEvents();
 
@@ -265,7 +277,8 @@ function addEventSubmit(e) {
       }
     );
   } else {
-    alert("Event cannot be empty");
+    // alert("Event cannot be empty");
+    popUpNotify("Event cannot be empty");
   }
 }
 

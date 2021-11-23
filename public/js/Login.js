@@ -4,6 +4,15 @@ function validateEmail(emailCheck) {
   return re.test(String(emailCheck).toLowerCase());
 }
 
+function popUpNotify(data) {
+  var x = document.getElementById("snackbar");
+  x.innerHTML = data;
+  x.className = "show";
+  setTimeout(function () {
+    x.className = x.className.replace("show", "");
+  }, 2000);
+}
+
 function login() {
   var password = document.getElementById("password").value;
   var email = document.getElementById("email").value;
@@ -34,13 +43,13 @@ function login() {
       (data) => {
         // console.log(data); // JSON data parsed by `data.json()` call
         if (data == "Invalid Credentials") {
-          alert(data);
+          popUpNotify(data);
           // localStorage.calUserName = data.username;
           // localStorage.calEmail = email;
           // localStorage.calStatus = "true";
           // window.location.href = "/";
         } else {
-          alert("User successfully logged in");
+          popUpNotify("User successfully logged in");
 
           localStorage.setItem("calInfo", JSON.stringify(data));
           (window.location.href = "/"), true;
@@ -51,13 +60,13 @@ function login() {
     (email == "" || email == undefined) &&
     (password == "" || password == undefined)
   ) {
-    alert("Enter Email and Password");
+    popUpNotify("Enter Email and Password");
   } else if (email == "" || email == undefined) {
-    alert("Enter Email");
+    popUpNotify("Enter Email");
   } else if (password == "" || password == undefined) {
-    alert("Enter Password");
+    popUpNotify("Enter Password");
   } else if (!validateEmail(email)) {
-    alert("Enter Valid Email ");
+    popUpNotify("Enter Valid Email ");
   }
 }
 
@@ -95,16 +104,19 @@ function loginTest() {
       (data) => {
         // console.log(data); // JSON data parsed by `data.json()` call
         if (data == "Invalid Credentials") {
-          alert(data);
+          popUpNotify(data);
           // localStorage.calUserName = data.username;
           // localStorage.calEmail = email;
           // localStorage.calStatus = "true";
           // window.location.href = "/";
         } else {
-          alert("User successfully logged in");
+          popUpNotify("User successfully logged in");
 
           localStorage.setItem("calInfo", JSON.stringify(data));
-          (window.location.href = "/"), true;
+
+          setTimeout(() => {
+            window.location.href = "/";
+          }, 3000);
         }
       }
     );

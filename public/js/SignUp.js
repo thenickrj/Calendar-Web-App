@@ -4,6 +4,15 @@ function validateEmail(emailCheck) {
   return re.test(String(emailCheck).toLowerCase());
 }
 
+function popUpNotify(data) {
+  var x = document.getElementById("snackbar");
+  x.innerHTML = data;
+  x.className = "show";
+  setTimeout(function () {
+    x.className = x.className.replace("show", "");
+  }, 3000);
+}
+
 function register() {
   var userName = document.getElementById("username").value;
   var password = document.getElementById("password").value;
@@ -49,9 +58,9 @@ function register() {
     postData("https://thenick-calendar.herokuapp.com/register", data).then(
       (data) => {
         if (data === "Account already exist") {
-          alert(data);
+          popUpNotify(data);
         } else {
-          alert("Account Created");
+          popUpNotify("Account Created");
           window.location.href = "/login";
         }
         // alert(data); // JSON data parsed by `data.json()` call
@@ -65,12 +74,12 @@ function register() {
     (password == "" || password == undefined) &&
     (userName == "" || userName == undefined)
   ) {
-    alert("Enter the complete details!");
+    popUpNotify("Enter the complete details!");
   } else if (userName === "" && userName === undefined) {
-    alert("Username cannot be empty!");
+    popUpNotify("Username cannot be empty!");
   } else if (!validateEmail(email)) {
-    alert("Enter the Valid Email!");
+    popUpNotify("Enter the Valid Email!");
   } else if (password === "" && password === undefined) {
-    alert("Password cannot be empty!");
+    popUpNotify("Password cannot be empty!");
   }
 }
