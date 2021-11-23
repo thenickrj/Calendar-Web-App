@@ -130,12 +130,14 @@ window.onload = function () {
   //   console.log(calInfo);
   //   console.log(calInfo.email);
   // }
+  removeCellsChange();
   fetchEvents();
   loadName();
   monthYear();
   findDates();
   calculatePrevMonth();
   calculateNextMonth();
+  removeCells();
 };
 
 function popUpNotify(data) {
@@ -145,6 +147,20 @@ function popUpNotify(data) {
   setTimeout(function () {
     x.className = x.className.replace("show", "");
   }, 3000);
+}
+
+function removeCells() {
+  ids.forEach((element) => {
+    if (document.getElementById(element).innerHTML === "") {
+      document.getElementById(element).style.opacity = "0";
+    }
+  });
+}
+
+function removeCellsChange() {
+  ids.forEach((element) => {
+    document.getElementById(element).style.opacity = "1";
+  });
 }
 
 function loadName() {
@@ -182,11 +198,13 @@ function ChangeDateDec() {
   } else {
     date = new Date(`${months[date.getMonth() - 1]}  ${date.getFullYear()}`);
   }
+  removeCellsChange();
   fetchEvents();
   calculatePrevMonth();
   monthYear();
   calculateNextMonth();
   findDates();
+  removeCells();
 }
 
 function ChangeDateInc() {
@@ -195,29 +213,35 @@ function ChangeDateInc() {
   } else {
     date = new Date(`${months[date.getMonth() + 1]}  ${date.getFullYear()}`);
   }
+  removeCellsChange();
   fetchEvents();
   calculatePrevMonth();
   monthYear();
   calculateNextMonth();
   findDates();
+  removeCells();
 }
 
 function ChangeYearInc() {
   date = new Date(`${months[date.getMonth()]}  ${date.getFullYear() + 1}`);
+  removeCellsChange();
   fetchEvents();
   calculatePrevMonth();
   monthYear();
   calculateNextMonth();
   findDates();
+  removeCells();
 }
 
 function ChangeYearDec() {
   date = new Date(`${months[date.getMonth()]}  ${date.getFullYear() - 1}`);
+  removeCellsChange();
   fetchEvents();
   calculatePrevMonth();
   monthYear();
   calculateNextMonth();
   findDates();
+  removeCells();
 }
 
 function logout() {
