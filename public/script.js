@@ -286,6 +286,12 @@ async function fetchEvents() {
 }
 
 async function fetchDailyEvents(datePara) {
+  console.log(datePara);
+  if (datePara.length > 2) {
+    datePara = datePara.split("<")[0];
+  }
+  console.log(datePara);
+
   modal.style.display = "block";
 
   var title = document.getElementById("modalHead");
