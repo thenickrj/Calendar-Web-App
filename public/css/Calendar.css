@@ -253,6 +253,7 @@ button {
 }
 
 .event_date {
+  cursor: pointer;
   border-radius: 50%;
   height: 20px;
   width: 20px;
